@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRAND</title>
+<style>
+  :root{
+    --green-hi:#12291c;--green:#0e2016;--green-lo:#0a140d;--ink:#121212;
+    --gold:#c2a14d;--gold-hi:#e6cf94;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:var(--ink)}
+  .hero{position:fixed;inset:0;display:grid;place-items:center;
+    background:radial-gradient(120% 90% at 50% 38%,var(--green-hi) 0%,var(--green) 34%,var(--green-lo) 72%,var(--ink) 100%);
+    isolation:isolate;cursor:default}
+  .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(38% 32% at 50% 42%,rgba(122,158,120,.16),rgba(0,0,0,0) 70%);
+    animation:breathe 7s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+  .hero::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+    background:radial-gradient(130% 120% at 50% 45%,rgba(0,0,0,0) 52%,rgba(0,0,0,.55) 100%);mix-blend-mode:multiply}
+  .stage{position:relative;z-index:2;width:min(46vw,340px);aspect-ratio:32.25/45;
+    filter:drop-shadow(0 18px 40px rgba(0,0,0,.55))}
+  @media (max-width:760px){.stage{width:min(64vw,300px)}}
+  svg.mark{display:block;width:100%;height:100%;overflow:visible}
+  .tagline{position:absolute;z-index:2;left:0;right:0;bottom:12vh;text-align:center;color:#e9efe8;
+    font-family:"Hiragino Mincho ProN","YuMincho","Yu Mincho",serif;letter-spacing:.42em;font-weight:400;
+    font-size:clamp(13px,1.5vw,18px);opacity:0;transform:translateY(8px);text-indent:.42em;
+    transition:opacity 1.2s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .tagline.show{opacity:1;transform:translateY(0)}
+  .tagline .en{display:block;margin-top:.9em;font-family:"Optima","Didot",Georgia,serif;letter-spacing:.62em;
+    font-size:clamp(11px,1.2vw,14px);color:var(--gold-hi);opacity:.9;text-indent:.62em}
+  .grain{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.05;mix-blend-mode:overlay}
+  @media (prefers-reduced-motion:reduce){.hero::before{animation:none}}
+</style>
+</head>
+<body>
+<div class="hero" id="hero" role="img" aria-label="GRAND" title="クリックでリプレイ">
+  <div class="stage">
+    <svg class="mark" viewBox="0 0 84 47" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <filter id="bristle" x="-25%" y="-25%" width="150%" height="150%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9 0.7" numOctaves="2" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <path id="gpath" d="M6,15 C6,6 13,1 21,1 C28,1 32,7 31,13 C30,19 24,18 19,15 C14,12 12,17 12,22 C12,27 9,30 14,31 C20,32 26,29 27,26 C28,30 24,35 19,35 C15,35 14,39 13,42 L11.5,45"/>
+        <mask id="paint" maskUnits="userSpaceOnUse" x="0" y="0" width="84" height="47">
+          <rect x="0" y="0" width="84" height="47" fill="black"/>
+          <g filter="url(#bristle)">
+            <path id="brush" d="M6,15 C6,6 13,1 21,1 C28,1 32,7 31,13 C30,19 24,18 19,15 C14,12 12,17 12,22 C12,27 9,30 14,31 C20,32 26,29 27,26 C28,30 24,35 19,35 C15,35 14,39 13,42 L11.5,45" pathLength="1" fill="none" stroke="white" stroke-width="27"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+          </g>
+        </mask>
+        <linearGradient id="goldsweep" x1="0" y1="0" x2="1" y2="0.2">
+          <stop offset="0" stop-color="#e6cf94" stop-opacity="0"/>
+          <stop offset="0.5" stop-color="#f4e6bf" stop-opacity="0.9"/>
+          <stop offset="1" stop-color="#e6cf94" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="markclip"><path d="M13.6109 20.9851C13.6378 20.5021 13.6646 20.046 13.6914 19.563C13.7451 18.758 13.7182 17.9531 13.8792 17.1749C14.0939 16.0212 15.2477 14.9479 16.3478 15.0015C16.8845 15.0284 17.5284 15.4308 17.8773 15.8602C19.8897 18.4092 22.5192 20.1533 25.3098 21.6828C26.0611 22.0852 27.1612 21.9243 28.0735 22.0316C28.8248 22.1121 29.603 22.1121 30.3006 22.3267C30.8641 22.5146 31.3202 22.9439 31.1324 23.7488C31.0519 24.044 31.4007 24.4197 31.4544 24.7685C31.7227 26.5662 31.991 28.3372 32.152 30.1349C32.2325 30.9399 31.7764 31.5302 30.9446 31.879C29.6566 32.3888 28.4223 33.1401 26.9734 32.9791C26.0074 32.8718 24.961 32.8181 24.1023 32.4157C22.6802 31.7717 21.5533 32.2815 20.319 32.8986C16.9918 34.5891 14.2817 37.004 11.7863 39.714C10.3106 41.324 8.78111 42.9071 7.27851 44.517C7.17118 44.6243 7.03701 44.7317 6.90285 44.839L6.66136 44.678C7.89565 42.7193 9.12993 40.7873 10.3642 38.8286C10.2569 38.7481 10.1496 38.6944 10.0422 38.6139C8.53962 40.7337 7.06385 42.8266 5.53441 45C4.83677 44.195 4.7831 43.6316 5.26609 42.9071C5.64174 42.3704 5.72223 41.6191 6.04422 41.0288C7.62732 38.1578 8.86161 35.0452 11.0619 32.523C11.1155 32.4425 11.1155 32.3352 11.1692 32.0937C10.4447 32.4425 9.80074 32.7913 9.15676 33.0328C8.21764 33.4085 7.38583 33.2475 6.6077 32.5767C5.64174 31.7449 4.32696 31.2619 4.16596 29.7593C2.4487 28.7933 2.82435 26.9419 2.18037 25.5198C1.50957 23.9903 1.72423 22.2194 0.489942 20.7973C-0.529684 19.6435 0.167955 17.7384 1.42907 16.692C2.01938 16.209 2.3682 15.4577 2.79752 14.8674C2.95851 15.0284 3.2 15.2699 3.44149 15.5113C3.65615 15.1894 4.05863 14.8674 4.05863 14.5454C4.05863 14.0624 3.84398 13.5794 3.70981 13.0964C3.65615 12.8818 3.46832 12.6135 3.54882 12.4793C4.16596 11.245 4.43429 9.79607 6.12472 9.36675C6.79552 9.20576 7.41267 8.64228 7.89565 8.10564C10.713 4.93943 13.6914 1.96105 17.8504 0.646266C22.9485 -0.96367 27.1612 0.351112 29.3346 5.52974C30.0323 7.19334 30.9982 8.77644 31.7495 10.44C32.5277 12.211 32.474 13.4184 30.9177 14.4649C30.3006 14.8674 29.8176 15.5113 29.3883 16.1285C27.8857 18.1677 25.8196 18.5971 23.4852 18.2214C23.19 18.1677 22.8144 17.7116 22.7607 17.3896C22.4656 15.9138 22.3314 14.3844 21.9826 12.9354C21.8484 12.3988 21.3386 11.8085 20.8288 11.5402C19.4067 10.8157 19.1652 10.44 19.514 8.85694C19.8092 7.56899 19.3799 7.13967 18.0919 7.59582C15.9722 8.32029 14.5769 10.0107 13.1816 11.5938C12.5376 12.3183 12.0546 13.2306 11.518 14.0624C10.8472 15.1089 10.6862 16.048 11.5448 17.1749C12.1351 17.9531 12.2425 19.08 12.6181 20.046C12.7791 20.4216 13.0743 20.7436 13.2889 21.0925C13.3963 21.0656 13.5036 21.012 13.6109 20.9851ZM14.6037 28.4982C12.806 29.0616 12.323 29.6251 12.4303 31.0204C13.1548 30.1618 13.7987 29.4105 14.6037 28.4982Z"/></clipPath>
+      </defs>
+      <g mask="url(#paint)"><path d="M13.6109 20.9851C13.6378 20.5021 13.6646 20.046 13.6914 19.563C13.7451 18.758 13.7182 17.9531 13.8792 17.1749C14.0939 16.0212 15.2477 14.9479 16.3478 15.0015C16.8845 15.0284 17.5284 15.4308 17.8773 15.8602C19.8897 18.4092 22.5192 20.1533 25.3098 21.6828C26.0611 22.0852 27.1612 21.9243 28.0735 22.0316C28.8248 22.1121 29.603 22.1121 30.3006 22.3267C30.8641 22.5146 31.3202 22.9439 31.1324 23.7488C31.0519 24.044 31.4007 24.4197 31.4544 24.7685C31.7227 26.5662 31.991 28.3372 32.152 30.1349C32.2325 30.9399 31.7764 31.5302 30.9446 31.879C29.6566 32.3888 28.4223 33.1401 26.9734 32.9791C26.0074 32.8718 24.961 32.8181 24.1023 32.4157C22.6802 31.7717 21.5533 32.2815 20.319 32.8986C16.9918 34.5891 14.2817 37.004 11.7863 39.714C10.3106 41.324 8.78111 42.9071 7.27851 44.517C7.17118 44.6243 7.03701 44.7317 6.90285 44.839L6.66136 44.678C7.89565 42.7193 9.12993 40.7873 10.3642 38.8286C10.2569 38.7481 10.1496 38.6944 10.0422 38.6139C8.53962 40.7337 7.06385 42.8266 5.53441 45C4.83677 44.195 4.7831 43.6316 5.26609 42.9071C5.64174 42.3704 5.72223 41.6191 6.04422 41.0288C7.62732 38.1578 8.86161 35.0452 11.0619 32.523C11.1155 32.4425 11.1155 32.3352 11.1692 32.0937C10.4447 32.4425 9.80074 32.7913 9.15676 33.0328C8.21764 33.4085 7.38583 33.2475 6.6077 32.5767C5.64174 31.7449 4.32696 31.2619 4.16596 29.7593C2.4487 28.7933 2.82435 26.9419 2.18037 25.5198C1.50957 23.9903 1.72423 22.2194 0.489942 20.7973C-0.529684 19.6435 0.167955 17.7384 1.42907 16.692C2.01938 16.209 2.3682 15.4577 2.79752 14.8674C2.95851 15.0284 3.2 15.2699 3.44149 15.5113C3.65615 15.1894 4.05863 14.8674 4.05863 14.5454C4.05863 14.0624 3.84398 13.5794 3.70981 13.0964C3.65615 12.8818 3.46832 12.6135 3.54882 12.4793C4.16596 11.245 4.43429 9.79607 6.12472 9.36675C6.79552 9.20576 7.41267 8.64228 7.89565 8.10564C10.713 4.93943 13.6914 1.96105 17.8504 0.646266C22.9485 -0.96367 27.1612 0.351112 29.3346 5.52974C30.0323 7.19334 30.9982 8.77644 31.7495 10.44C32.5277 12.211 32.474 13.4184 30.9177 14.4649C30.3006 14.8674 29.8176 15.5113 29.3883 16.1285C27.8857 18.1677 25.8196 18.5971 23.4852 18.2214C23.19 18.1677 22.8144 17.7116 22.7607 17.3896C22.4656 15.9138 22.3314 14.3844 21.9826 12.9354C21.8484 12.3988 21.3386 11.8085 20.8288 11.5402C19.4067 10.8157 19.1652 10.44 19.514 8.85694C19.8092 7.56899 19.3799 7.13967 18.0919 7.59582C15.9722 8.32029 14.5769 10.0107 13.1816 11.5938C12.5376 12.3183 12.0546 13.2306 11.518 14.0624C10.8472 15.1089 10.6862 16.048 11.5448 17.1749C12.1351 17.9531 12.2425 19.08 12.6181 20.046C12.7791 20.4216 13.0743 20.7436 13.2889 21.0925C13.3963 21.0656 13.5036 21.012 13.6109 20.9851ZM14.6037 28.4982C12.806 29.0616 12.323 29.6251 12.4303 31.0204C13.1548 30.1618 13.7987 29.4105 14.6037 28.4982Z" fill="#ffffff"/></g>
+      <path id="settle" d="M13.6109 20.9851C13.6378 20.5021 13.6646 20.046 13.6914 19.563C13.7451 18.758 13.7182 17.9531 13.8792 17.1749C14.0939 16.0212 15.2477 14.9479 16.3478 15.0015C16.8845 15.0284 17.5284 15.4308 17.8773 15.8602C19.8897 18.4092 22.5192 20.1533 25.3098 21.6828C26.0611 22.0852 27.1612 21.9243 28.0735 22.0316C28.8248 22.1121 29.603 22.1121 30.3006 22.3267C30.8641 22.5146 31.3202 22.9439 31.1324 23.7488C31.0519 24.044 31.4007 24.4197 31.4544 24.7685C31.7227 26.5662 31.991 28.3372 32.152 30.1349C32.2325 30.9399 31.7764 31.5302 30.9446 31.879C29.6566 32.3888 28.4223 33.1401 26.9734 32.9791C26.0074 32.8718 24.961 32.8181 24.1023 32.4157C22.6802 31.7717 21.5533 32.2815 20.319 32.8986C16.9918 34.5891 14.2817 37.004 11.7863 39.714C10.3106 41.324 8.78111 42.9071 7.27851 44.517C7.17118 44.6243 7.03701 44.7317 6.90285 44.839L6.66136 44.678C7.89565 42.7193 9.12993 40.7873 10.3642 38.8286C10.2569 38.7481 10.1496 38.6944 10.0422 38.6139C8.53962 40.7337 7.06385 42.8266 5.53441 45C4.83677 44.195 4.7831 43.6316 5.26609 42.9071C5.64174 42.3704 5.72223 41.6191 6.04422 41.0288C7.62732 38.1578 8.86161 35.0452 11.0619 32.523C11.1155 32.4425 11.1155 32.3352 11.1692 32.0937C10.4447 32.4425 9.80074 32.7913 9.15676 33.0328C8.21764 33.4085 7.38583 33.2475 6.6077 32.5767C5.64174 31.7449 4.32696 31.2619 4.16596 29.7593C2.4487 28.7933 2.82435 26.9419 2.18037 25.5198C1.50957 23.9903 1.72423 22.2194 0.489942 20.7973C-0.529684 19.6435 0.167955 17.7384 1.42907 16.692C2.01938 16.209 2.3682 15.4577 2.79752 14.8674C2.95851 15.0284 3.2 15.2699 3.44149 15.5113C3.65615 15.1894 4.05863 14.8674 4.05863 14.5454C4.05863 14.0624 3.84398 13.5794 3.70981 13.0964C3.65615 12.8818 3.46832 12.6135 3.54882 12.4793C4.16596 11.245 4.43429 9.79607 6.12472 9.36675C6.79552 9.20576 7.41267 8.64228 7.89565 8.10564C10.713 4.93943 13.6914 1.96105 17.8504 0.646266C22.9485 -0.96367 27.1612 0.351112 29.3346 5.52974C30.0323 7.19334 30.9982 8.77644 31.7495 10.44C32.5277 12.211 32.474 13.4184 30.9177 14.4649C30.3006 14.8674 29.8176 15.5113 29.3883 16.1285C27.8857 18.1677 25.8196 18.5971 23.4852 18.2214C23.19 18.1677 22.8144 17.7116 22.7607 17.3896C22.4656 15.9138 22.3314 14.3844 21.9826 12.9354C21.8484 12.3988 21.3386 11.8085 20.8288 11.5402C19.4067 10.8157 19.1652 10.44 19.514 8.85694C19.8092 7.56899 19.3799 7.13967 18.0919 7.59582C15.9722 8.32029 14.5769 10.0107 13.1816 11.5938C12.5376 12.3183 12.0546 13.2306 11.518 14.0624C10.8472 15.1089 10.6862 16.048 11.5448 17.1749C12.1351 17.9531 12.2425 19.08 12.6181 20.046C12.7791 20.4216 13.0743 20.7436 13.2889 21.0925C13.3963 21.0656 13.5036 21.012 13.6109 20.9851ZM14.6037 28.4982C12.806 29.0616 12.323 29.6251 12.4303 31.0204C13.1548 30.1618 13.7987 29.4105 14.6037 28.4982Z" fill="#ffffff" opacity="0"/>
+      <g clip-path="url(#markclip)">
+        <rect id="gold" x="-40" y="0" width="30" height="47" fill="url(#goldsweep)" opacity="0"/>
+      </g>
+      <g id="tip" opacity="0">
+        <g filter="url(#bristle)">
+          <ellipse rx="4.2" ry="5.6" fill="#f4efe4" opacity="0.9"/>
+          <ellipse rx="2.2" ry="3.0" fill="#ffffff"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <p class="tagline" id="tag">一頭、頂へ。<span class="en">GRAND</span></p>
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#gr)"/></svg>
+</div>
+
+<script>
+(function(){
+  var brush=document.getElementById('brush'),
+      gpath=document.getElementById('gpath'),
+      tip=document.getElementById('tip'),
+      settle=document.getElementById('settle'),
+      gold=document.getElementById('gold'),
+      tag=document.getElementById('tag'),
+      hero=document.getElementById('hero');
+  var L=gpath.getTotalLength();
+  brush.setAttribute('pathLength', L);
+  brush.style.strokeDasharray = '0 '+(L+2);
+  brush.style.strokeDashoffset = 0;
+
+  var DRAW=3100;          // 運筆(ms)
+  var SETTLE_AT=DRAW-700, SETTLE_DUR=800;
+  var GOLD_AT=DRAW-200,   GOLD_DUR=900;
+
+  // cubic-bezier(.5,.02,.2,1) 近似イージング
+  function bez(p){ // Newton法でx→t、その後y
+    var x1=.5,y1=.02,x2=.2,y2=1;
+    function cx(t){return 3*(1-t)*(1-t)*t*x1+3*(1-t)*t*t*x2+t*t*t;}
+    function cy(t){return 3*(1-t)*(1-t)*t*y1+3*(1-t)*t*t*y2+t*t*t;}
+    var t=p;
+    for(var i=0;i<6;i++){var e=cx(t)-p, d=(cx(t+1e-3)-cx(t-1e-3))/2e-3; if(Math.abs(e)<1e-4)break; t-=e/(d||1);}
+    return cy(Math.max(0,Math.min(1,t)));
+  }
+  function clamp01(v){return v<0?0:v>1?1:v;}
+
+  function setFinal(){
+    brush.style.strokeDasharray='none'; brush.style.strokeDashoffset=0; tip.setAttribute('opacity',0);
+    settle.setAttribute('opacity',1); gold.setAttribute('opacity',0);
+    tag.classList.add('show');
+  }
+
+  // 指定時刻tの状態を静的に適用（rAFからも ?seek= からも使う）
+  function applyState(t){
+    var p=clamp01(t/DRAW), e=bez(p);
+    brush.style.strokeDasharray=(e*L)+' '+(L+2); brush.style.strokeDashoffset=0;
+    if(t<DRAW){
+      var len=e*L, pt=gpath.getPointAtLength(len), pt2=gpath.getPointAtLength(Math.min(L,len+0.5));
+      var ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI;
+      tip.setAttribute('transform','translate('+pt.x+' '+pt.y+') rotate('+ang+')');
+      var op=p<0.06?p/0.06:(p>0.9?(1-p)/0.1:1); tip.setAttribute('opacity',clamp01(op));
+    } else tip.setAttribute('opacity',0);
+    settle.setAttribute('opacity', t>=SETTLE_AT?clamp01((t-SETTLE_AT)/SETTLE_DUR):0);
+    if(t>=GOLD_AT && t<=GOLD_AT+GOLD_DUR){var gp=clamp01((t-GOLD_AT)/GOLD_DUR);gold.setAttribute('x',-40+130*gp);gold.setAttribute('opacity',Math.sin(Math.PI*gp)*0.85);} else gold.setAttribute('opacity',0);
+    if(t>=DRAW-100) tag.classList.add('show'); else tag.classList.remove('show');
+  }
+  var END=DRAW+Math.max(SETTLE_DUR,GOLD_DUR)+150;
+  var start=null, raf=null;
+  function frame(ts){ if(start===null)start=ts; var t=ts-start; if(t>=END){applyState(END);setFinal();return;} applyState(t); raf=requestAnimationFrame(frame); }
+  function reset(){ brush.style.strokeDasharray='0 '+(L+2); brush.style.strokeDashoffset=0; tip.setAttribute('opacity',0); settle.setAttribute('opacity',0); gold.setAttribute('opacity',0); tag.classList.remove('show'); }
+  function play(){ if(raf)cancelAnimationFrame(raf); start=null; reset(); raf=requestAnimationFrame(frame); }
+
+  var seek=new URLSearchParams(location.search).get('seek');
+  if(seek!==null){ reset(); applyState(parseFloat(seek)); }        // ?seek=ミリ秒 でその瞬間を静止表示（検証/録画用）
+  else if(matchMedia('(prefers-reduced-motion: reduce)').matches){ setFinal(); }
+  else { play(); hero.addEventListener('click', play); }
+})();
+</script>
+</body>
+</html>
